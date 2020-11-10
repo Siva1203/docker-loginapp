@@ -1,0 +1,15 @@
+sudo: required
+
+services:
+    - docker
+
+before_install:
+    - docker build -t siva199201/loginapp .
+
+script:
+    - docker run siva199201/loginapp npm test
+
+after_success:
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+    - docker push siva199201/loginapp
