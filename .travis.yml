@@ -13,3 +13,15 @@ after_success:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
     - docker push siva199201/loginapp
+
+deploy:
+    provider: elasticbeanstalk
+    region: eu-west-1
+    app: docker-loginapp
+    env: DockerLoginapp-env
+    bucker_name: elasticbeanstalk-eu-west-1-828942056265
+    bucket_path: docker-loginapp
+    on: 
+        branch: master
+    access_key_id : $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
